@@ -1,1 +1,1 @@
-# db_blogpessoal
+# Banco de dados pessoal utilizando o STS.
