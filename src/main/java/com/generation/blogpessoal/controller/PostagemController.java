@@ -37,12 +37,12 @@ public class PostagemController {
 	 * ele responderá a requisição (Request),
 	 * com uma HTTP Response (Resposta http)*/
 	
-	public ResponseEntity<List<Postagem>> getAll(){ 
+	public ResponseEntity< List<Postagem>> getAll(){ 
 		return ResponseEntity.ok(postagemRepository.findAll()); //Ok --> 200, metodo findAll equivae ao select*from do MySql
 	}
 	
 	@GetMapping("/{id}")
-	public ResponseEntity<Postagem> getById(@PathVariable Long id){
+	public ResponseEntity<Postagem> getById(@PathVariable Long id){ //@PathVariable variável do caminho para minha uri
 		return postagemRepository.findById(id)
 				.map(resposta -> ResponseEntity.ok(resposta))
 				.orElse(ResponseEntity.notFound().build());
@@ -50,7 +50,7 @@ public class PostagemController {
 		//select * from tb_postagens where id = 1;
 	}
 	
-	@GetMapping("/titulo{titulo}")
+	@GetMapping("/titulo/{titulo}")
 	public ResponseEntity<List<Postagem>> getByTitulo(@PathVariable String titulo){ 
 		return ResponseEntity.ok(postagemRepository.findAllByTituloContainingIgnoreCase(titulo)); 		//Ok --> 200, metodo findAll equivae ao select*from do MySql
 		
@@ -58,7 +58,7 @@ public class PostagemController {
 	}
 	
 	@PostMapping //Criação de Dados
-	public ResponseEntity <Postagem> postPostagem(@Valid @RequestBody Postagem postagem){
+	public ResponseEntity <Postagem> postPostagem(@Valid @RequestBody Postagem postagem){ //Corpo da REQUISIÇÃO
 		return ResponseEntity.status(HttpStatus.CREATED).body(postagemRepository.save(postagem));
 	}
 	

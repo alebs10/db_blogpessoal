@@ -6,12 +6,15 @@ import javax.persistence.Entity;//Trablhamos com JPA.
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
 import org.hibernate.annotations.UpdateTimestamp;
+
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 @Entity//Create Table
 @Table(name = "tb_postagens") //Informar o nome da tabela dentro do banco de dados ou seja postgem
@@ -31,6 +34,19 @@ public class Postagem {
 	
 	@UpdateTimestamp //Pega o relgoio do windows a hora do momento e grava no banco.
 	private LocalDateTime data;
+	
+	@ManyToOne
+	@JsonIgnoreProperties("postagem")
+	private Tema tema;
+
+
+	public Tema getTema() {
+		return tema;
+	}
+
+	public void setTema(Tema tema) {
+		this.tema = tema;
+	}
 
 	public Long getId() {
 		return id;
